@@ -58,6 +58,8 @@ class MnistDataset(Dataset):
 
 
 transforms_train = transforms.Compose([
+    transforms.RandomHorizontalFlip(p=0.5),
+    transforms.RandomVerticalFlip(p=0.5),
     transforms.ToTensor(),
     transforms.Normalize(
         [0.485, 0.456, 0.406],
@@ -179,8 +181,7 @@ def load_model(fold: int, epoch: int, device: torch.device = 'cuda'):
 
 transforms = tta.Compose(
     [tta.HorizontalFlip(),
-     tta.VerticalFlip(),
-     tta.Rotate90(angles=[0,90,180,270])]
+     tta.VerticalFlip()]
 )
 
 def test(device: torch.device = 'cuda'):
